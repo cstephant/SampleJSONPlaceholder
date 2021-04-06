@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/schema#",
-	"$id": "http://unibail/customer.json",
+	"$id": "http://my-json-server.typicode.com/cstephant/SampleJSONPlaceholder",
 	"title": "Customer",
 	"description": "Represent Customer schema used in Mulesoft",
 	"type": "object",
