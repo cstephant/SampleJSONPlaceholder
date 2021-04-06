@@ -1,40 +1,824 @@
 {
-    "users": [
-        {
-            "id":"1",
-            "firstName":"cedric",
-            "lastName":"stephant",
-            "email":"stephantcedric@gmail.com",
-            "age":43,
-            "companyId":"1"
-        }
-    ],
-    "companies":[
-        {
-            "id":"1",
-            "name":"Apple",
-            "logo":"https://cdn.mos.cms.futurecdn.net/MFHVMYQCeJHMGop4u8VkzJ-1200-80.jpg",
-            "description":"Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services. It is considered one of the Big Four technology companies, alongside Amazon, Google, and Microsoft."
-        }, 
-        {
-            "id":"2",
-            "name":"Microsoft",
-            "logo":"https://stepshot.net/wp-content/uploads/2017/10/Microsoft-logo.jpg",
-            "description":"Microsoft Corporation is an American multinational technology company with headquarters in Redmond, Washington. It develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services."
-        },
-        {
-            "id":"3",
-            "name":"Google",
-            "logo":"https://voluntarysupport.org.uk/wp-content/uploads/2018/07/Google_logo.jpg",
-            "description":"Google Inc., American search engine company, founded in 1998 by Sergey Brin and Larry Page, that is a subsidiary of the holding company Alphabet Inc. More than 70 percent of worldwide online search requests are handled by Google, placing it at the heart of most Internet users' experience."
-        }
-    ],
-    "contacts": [
-          {
-            "name": "cedric stephant",
-            "country": "france",
-            "phone": "2322984953",
-            "id": 1
-          }
-        ]
+	"$schema": "http://json-schema.org/schema#",
+	"$id": "http://unibail/customer.json",
+	"title": "Customer",
+	"description": "Represent Customer schema used in Mulesoft",
+	"type": "object",
+	"properties": {
+		"id": {
+			"id": "#/properties/id",
+			"title": "identifier",
+			"description": "Unique identifier",
+			"type": "string"
+		},
+		"cognito_id": {
+			"id": "#/properties/cognito_id",
+			"title": "Cognito Identifier",
+			"description": "Cognito Identifier fill only when user is registered in Cognito",
+			"type": "string"
+		},
+		"google_id": {
+			"id": "#/properties/google_id",
+			"title": "Google Identifier",
+			"description": "Google Identifier fill only when Customer is registered with Google",
+			"type": "string"
+		},
+		"pas_id": {
+			"id": "#/properties/pas_id",
+			"title": "PAS Identifier",
+			"description": "PAS Identifier fill only when US/UK Customer  is registered in PAS",
+			"type": "string"
+		},
+		"crm_id": {
+			"id": "#/properties/crm_id",
+			"title": "FID Identifier",
+			"description": "FID Identifier fill only when Customer  is created in FID",
+			"type": "string"
+		},
+		"facebook_id": {
+			"id": "#/properties/facebook_id",
+			"title": "Facebook Identifier",
+			"description": "Facebook Identifier fill only when Customer is registered with Facebook",
+			"type": "string"
+		},
+		"first_name": {
+			"id": "#/properties/first_name",
+			"title": "First name",
+			"description": "First name of Customer",
+			"type": "string"
+		},
+		"last_name": {
+			"id": "#/properties/last_name",
+			"title": "Last name",
+			"description": "Last name of Customer",
+			"type": "string"
+		},
+		"center_id": {
+			"id": "#/properties/center_id",
+			"title": "Center Identifier",
+			"description": "Center Identifier where customer is registered",
+			"type": "string"
+		},
+		"phone": {
+			"id": "#/properties/phone",
+			"title": "Customer Phone",
+			"description": "Phone of the customer.",
+			"type": "string"
+		},
+		"salutation": {
+			"id": "#/properties/salutation",
+			"title": "Customer Salutation",
+			"description": "Salutation of the customer.",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": [
+					"Mr.",
+					"Ms.",
+					"Mrs."
+				]
+			}
+		},
+		"gender": {
+			"id": "#/properties/gender",
+			"title": "Customer Gender",
+			"description": "Gender of the customer.",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": [
+					"Male",
+					"Female",
+					"Decline to specify",
+					"Other"
+				]
+			}
+		},
+		"CustomerAddress": {
+			"$ref": "#/definitions/address"
+		},
+		"CustomerPreferences": {
+			"type": "array",
+			"items": [
+				{
+					"$ref": "#/definitions/CustomerPreference"
+				}
+			]
+		},
+		"CustomerOptins": {
+			"type": "array",
+			"items": {
+				"anyOf": [
+					{
+						"$ref": "#/definitions/CustomerOptin"
+					}
+				]
+			}
+		},
+		"CustomerPremium": {
+			"$ref": "#/definitions/CustomerPremium"
+		},
+		"CustomerBookmarks": {
+			"type": "array",
+			"items": [
+				{
+					"$ref": "#/definitions/CustomerBookmark"
+				}
+			]
+		},
+		"CustomerParkings": {
+			"type": "array",
+			"items": [
+				{
+					"$ref": "#/definitions/CustomerParking"
+				}
+			]
+		},
+		"CustomerSubscriptions": {
+			"type": "array",
+			"items": [
+				{
+					"$ref": "#/definitions/CustomerSubscription"
+				}
+			]
+		},
+		"CustomerNewsletters": {
+			"type": "array",
+			"items": [
+				{
+					"$ref": "#/definitions/CustomerNewsletter"
+				}
+			]
+		},
+		"company_name": {
+			"id": "#/properties/company_name",
+			"title": "Company Name",
+			"description": "Company name of the customer",
+			"type": "string"
+		},
+		"email": {
+			"id": "#/properties/email",
+			"title": "Customer email",
+			"description": "Email of the customer.",
+			"type": "string",
+			"format": "email"
+		},
+		"barcode": {
+			"id": "#/properties/barcode",
+			"title": "The barcode schema",
+			"description": "An explanation about the purpose of this instance.",
+			"type": "string"
+		},
+		"birth_date": {
+			"id": "#/properties/birth_date",
+			"title": "Customer Birthdate",
+			"description": "Birthdate of the customer with format YYYY-MM-DD",
+			"type": "string",
+			"format": "date"
+		},
+		"card_uid": {
+			"id": "#/properties/card_uid",
+			"title": "Card Identifier",
+			"description": "Card Identifier of the customer.",
+			"type": "string"
+		},
+		"licence_plate": {
+			"id": "#/properties/licence_plate",
+			"title": "Licence plate",
+			"description": "Licence plate of the customer.",
+			"type": "string"
+		},
+		"created_at": {
+			"id": "#/properties/created_at",
+			"title": "Customer Created date",
+			"description": "Date when customer is created with format YYYY:MM::DDThh:mm:ss.sTZD",
+			"type": "string",
+			"format": "date-time"
+		},
+		"updated_at": {
+			"id": "#/properties/updated_at",
+			"title": "Customer updated date",
+			"description": "Date when customer is updated with format YYYY:MM::DDThh:mm:ss.sTZD",
+			"type": "string",
+			"format": "date-time"
+		},
+		"source": {
+			"id": "#/properties/source",
+			"title": "Source",
+			"description": "Source of creation of customer.",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": [
+					"facebook",
+					"twitter",
+					"googleplus",
+					"email"
+				]
+			}
+		},
+		"origin": {
+			"id": "#/properties/origin",
+			"title": "Origin",
+			"description": "Origin of customer.",
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": [
+					"website",
+					"mobile app",
+					"partner",
+					"receptionist_dashboard",
+					"concierge_console"
+				]
+			}
+		}
+	},
+	"required": [
+		"id",
+		"crm_id",
+		"first_name",
+		"last_name",
+		"center_id",
+		"CustomerAddress",
+		"email"
+	],
+	"examples": [
+		{
+			"id": "1234567890",
+			"cognito_id": "",
+			"google_id": "",
+			"pas_id": "",
+			"crm_id": "AZSRFEF354464",
+			"facebook_id": "",
+			"first_name": "Cedric",
+			"last_name": "STEPHANT",
+			"center_id": "11",
+			"phone": "+33788181644",
+			"salutation": "Mr.",
+			"gender": "Male",
+			"CustomerAddress": {
+				"cust_id": "1234567890",
+				"address_line1": "253 TER RUE PAUL VAILLANT COUTURIER",
+				"city": "Alfortville",
+				"zipcode": "94140",
+				"country_code": "FRA"
+			},
+			"CustomerPreferences": [
+				{
+					"id": "01",
+					"cust_id": "1234567890",
+					"center_id": "11",
+					"pref_id": "34422",
+					"pref_name": "sms",
+					"pref_type": "notifications",
+					"created_at": "2021:02:28T11:59:03.45Z",
+					"updated_at": "2021:02:28T11:59:03.45Z"
+				},
+				{
+					"id": "02",
+					"cust_id": "1234567890",
+					"center_id": "17",
+					"pref_id": "P-4093O9",
+					"pref_name": "email",
+					"pref_type": "Preference Contact",
+					"created_at": "2021:03:18T11:59:03.45Z",
+					"updated_at": "2021:03:18T11:59:03.45Z"
+				}
+			],
+			"CustomerOptins": [
+				{
+					"id": "01",
+					"cust_id": "1234567890",
+					"optin_id": "13R134",
+					"optin_name": "optinLoyalty",
+					"created_at": "2021:02:28T11:59:03.45Z",
+					"updated_at": "2021:02:28T11:59:03.45Z"
+				},
+				{
+					"id": "02",
+					"cust_id": "1234567890",
+					"optin_id": "54345",
+					"optin_name": "optinCommercial",
+					"created_at": "2021:02:28T11:59:03.45Z",
+					"updated_at": "2021:02:28T11:59:03.45Z"
+				}
+			],
+			"CustomerPremium": {
+				"id": "2355",
+				"cust_id": "1234567890",
+				"upgrade_from": "Choice 1",
+				"has_bank": "true",
+				"balance": "100",
+				"has_ticket_restaurant": "false",
+				"threshold": "390",
+				"has_scan": "false",
+				"started_date": "2021:01:31T11:59:03.45Z",
+				"created_at": "2021:01:31T11:59:03.45Z",
+				"update_at": "2021:01:31T11:59:03.45Z",
+				"end_date": "2021:01:31T11:59:03.45Z"
+			},
+			"company_name": "IBM Interactive",
+			"email": "cedric.stephant@ibm.com",
+			"barcode": "4004674019687",
+			"birth_date": "1978-03-17",
+			"card_uid": "7654643E",
+			"licence_plate": "DF-205-PE",
+			"created_at": "2021:01:31T11:59:03.45Z",
+			"updated_at": "2021:04:02T18:12:53.11Z",
+			"source": "email",
+			"origin": "website"
+		}
+	],
+	"definitions": {
+		"address": {
+			"title": "Address",
+			"description": "Address of Customer",
+			"type": "object",
+			"properties": {
+				"cust_id": {
+					"title": "Customer Identifier",
+					"type": "string"
+				},
+				"address_line1": {
+					"title": "Address line1",
+					"description": "Address line 1 of the customer address.",
+					"type": "string"
+				},
+				"address_line2": {
+					"title": "Address line2",
+					"description": "Address line 2 of the customer address.",
+					"type": "string"
+				},
+				"city": {
+					"title": "City",
+					"description": "City of the customer address.",
+					"type": "string"
+				},
+				"zipcode": {
+					"title": "Zipcode",
+					"description": "Zipcode of the customer address.",
+					"type": "string"
+				},
+				"country_code": {
+					"title": "Country code",
+					"description": "Country code of the customer address.",
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"FRA",
+							"USA",
+							"ESP"
+						]
+					}
+				}
+			},
+			"required": [
+				"cust_id",
+				"address_line1",
+				"city",
+				"zipcode",
+				"country_code"
+			]
+		},
+		"CustomerPreference": {
+			"title": "Customer Preferences",
+			"description": "preference of Customer",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Identifier",
+					"type": "string"
+				},
+				"cust_id": {
+					"title": "Customer Identifier",
+					"type": "string"
+				},
+				"center_id": {
+					"title": "Center identifier",
+					"type": "string"
+				},
+				"pref_id": {
+					"title": "Preference Identifier",
+					"type": "string"
+				},
+				"pref_name": {
+					"title": "Preference",
+					"type": "string"
+				},
+				"pref_type": {
+					"title": "Preference type",
+					"type": "string"
+				},
+				"created_at": {
+					"title": "Created date",
+					"description": "Date when preference is created with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"title": "Updated date",
+					"description": "Date when preference is updated with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"id",
+				"cust_id",
+				"pref_id",
+				"pref_name",
+				"pref_type"
+			]
+		},
+		"CustomerOptin": {
+			"title": "Customer Optins",
+			"description": "Optins of Customer",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Identifier",
+					"type": "string"
+				},
+				"cust_id": {
+					"title": "Customer Identifier",
+					"type": "string"
+				},
+				"optin_id": {
+					"title": "Optin Identifier",
+					"type": "string"
+				},
+				"optin_name": {
+					"title": "Optin Name",
+					"type": "string"
+				},
+				"created_at": {
+					"title": "Created date",
+					"description": "Date when optin is created with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"title": "Updated date",
+					"description": "Date when optin is updated with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"id",
+				"cust_id",
+				"optin_id",
+				"optin_name"
+			]
+		},
+		"CustomerPremium": {
+			"title": "Premium",
+			"description": "Customer Premium",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Identifier",
+					"type": "string"
+				},
+				"cust_id": {
+					"title": "Customer Identifier",
+					"type": "string"
+				},
+				"upgrade_from": {
+					"title": "upgrade from",
+					"description": "upgrade to premium from .",
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"Choice1"
+						]
+					}
+				},
+				"has_bank": {
+					"title": "has bank",
+					"description": "has bank.",
+					"type": "boolean"
+				},
+				"balance": {
+					"title": "Balance",
+					"description": "Balance.",
+					"type": "integer"
+				},
+				"has_ticket_restaurant": {
+					"title": "Has ticket restaurant",
+					"description": "has ticket restaurant.",
+					"type": "boolean"
+				},
+				"threshold": {
+					"title": "threshold",
+					"description": "threshold.",
+					"type": "string"
+				},
+				"is_converted": {
+					"title": "is converted",
+					"description": "is converted.",
+					"type": "boolean"
+				},
+				"has_scan": {
+					"title": "has scan",
+					"description": "has scan",
+					"type": "boolean"
+				},
+				"started_date": {
+					"title": "Started date",
+					"description": "Date when premium is started with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"created_at": {
+					"title": "Created date",
+					"description": "Date when premium is created with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"title": "Updated date",
+					"description": "Date when premium is updated with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"end_date": {
+					"title": "End date",
+					"description": "Date when premium is ended with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"id",
+				"cust_id",
+				"started_date",
+				"upgrade_from"
+			]
+		},
+		"CustomerBookmark": {
+			"title": "Bookmark",
+			"description": "Bookmarks of Customer",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Identifier",
+					"type": "string"
+				},
+				"cust_id": {
+					"title": "Customer Identifier",
+					"type": "string"
+				},
+				"center_id": {
+					"title": "Center Identifier",
+					"description": "Center identifier.",
+					"type": "string"
+				},
+				"bookmark_name": {
+					"title": "Bookmark",
+					"description": "Name of bookmark.",
+					"type": "string"
+				},
+				"bookmark_type": {
+					"title": "Balance",
+					"description": "Balance.",
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"store",
+							"restaurant",
+							"offer",
+							"event",
+							"news"
+						]
+					}
+				},
+				"sitecore_id": {
+					"title": "Sitecore Identifier",
+					"description": "Sitecore Identifier.",
+					"type": "string"
+				},
+				"started_date": {
+					"title": "Started date",
+					"description": "Date when bookmark is started with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"created_at": {
+					"title": "Created date",
+					"description": "Date when bookmark is created with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"title": "Updated date",
+					"description": "Date when bookmark is updated with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"end_date": {
+					"title": "End date",
+					"description": "Date when bookmark is ended with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"cust_id",
+				"id",
+				"center_id",
+				"bookmark_name",
+				"started_date"
+			]
+		},
+		"CustomerParking": {
+			"title": "Parking",
+			"description": "Customer Parking",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Identifier",
+					"type": "string"
+				},
+				"cust_id": {
+					"title": "Customer Identifier",
+					"type": "string"
+				},
+				"center_id": {
+					"title": "Center Identifier",
+					"description": "Center identifier.",
+					"type": "string"
+				},
+				"status": {
+					"title": "Status",
+					"description": "Status of parking.",
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"Active",
+							"Inactive",
+							"Deleted"
+						]
+					}
+				},
+				"first_park_date": {
+					"title": "First park date",
+					"description": "Date of first park in this center with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"last_park_date": {
+					"title": "Last park date",
+					"description": "Date of last park in center with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"started_date": {
+					"title": "Started date",
+					"description": "Date when customer parking is started with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"created_at": {
+					"title": "Created date",
+					"description": "Date when customer parking is created with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"title": "Updated date",
+					"description": "Date when customer parking is updated with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"end_date": {
+					"title": "End date",
+					"description": "Date when customer parking is ended with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"cust_id",
+				"id",
+				"center_id",
+				"started_date"
+			]
+		},
+		"CustomerSubscription": {
+			"title": "Customer Subscription",
+			"description": "Customer Subscription",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Identifier",
+					"type": "string"
+				},
+				"cust_id": {
+					"title": "Customer Identifier",
+					"type": "string"
+				},
+				"subscription_plan_id": {
+					"title": "Subscription Plan Identifier",
+					"description": "Subscription Plan identifier.",
+					"type": "string"
+				},
+				"subscription_plan_name": {
+					"title": "Subscription Plan Name",
+					"description": "Subscription Plan Name.",
+					"type": "string"
+				},
+				"started_date": {
+					"title": "Started date",
+					"description": "Date when subscription plan is started for customer with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"created_at": {
+					"title": "Created date",
+					"description": "Date when subscription plan is created for customer with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"title": "Updated date",
+					"description": "Date when subscription plan is updated for customerwith format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"cancel_at": {
+					"title": "End date",
+					"description": "Date when subscription plan is cancelled for customer with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"cust_id",
+				"id",
+				"subscription_plan_id",
+				"started_date"
+			]
+		},
+		"CustomerNewsletter": {
+			"title": "Customer Newsletter",
+			"description": "Customer Newsletter",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "Identifier",
+					"type": "string"
+				},
+				"cust_id": {
+					"title": "Customer Identifier",
+					"type": "string"
+				},
+				"newsletter_id": {
+					"title": "Newsletter Identifier",
+					"description": "Newsletter identifier.",
+					"type": "string"
+				},
+				"newsletter_name": {
+					"title": "Newsletter Name",
+					"description": "Newsletter Name.",
+					"type": "string"
+				},
+				"started_date": {
+					"title": "Started date",
+					"description": "Date when newsletter is started for customer with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"created_at": {
+					"title": "Created date",
+					"description": "Date when newsletter is created for customer with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"updated_at": {
+					"title": "Updated date",
+					"description": "Date when newsletter is updated for customerwith format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				},
+				"cancel_at": {
+					"title": "End date",
+					"description": "Date when newsletter is cancelled for customer with format YYYY:MM::DDThh:mm:ss.sTZD",
+					"type": "string",
+					"format": "date-time"
+				}
+			},
+			"required": [
+				"cust_id",
+				"id",
+				"newsletter_id",
+				"started_date"
+			]
+		}
+	}
 }
