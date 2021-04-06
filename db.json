@@ -2,34 +2,10 @@
     "users": [
         {
             "id":"1",
-            "firstName":"Animesh",
-            "lastName":"Roy",
-            "email":"ani@gmail.com",
-            "age":21,
-            "companyId":"1"
-        },
-        {
-            "id":"2",
-            "firstName":"Rahul",
-            "lastName":"Sharma",
-            "email":"rahul@gmail.com",
-            "age":20,
-            "companyId":"1"
-        },
-        {
-            "id":"3",
-            "firstName":"Mark",
-            "lastName":"Tyson",
-            "email":"lipon21@gmail.com",
-            "age":22,
-            "companyId":"1"
-        }, 
-        {
-            "id":"4",
-            "firstName":"Saurav",
-            "lastName":"Kumar",
-            "email":"saurav@gmail.com",
-            "age":24,
+            "firstName":"cedric",
+            "lastName":"stephant",
+            "email":"stephantcedric@gmail.com",
+            "age":43,
             "companyId":"1"
         }
     ],
@@ -55,34 +31,10 @@
     ],
     "contacts": [
           {
-            "name": "Animesh Roy",
-            "country": "India",
+            "name": "cedric stephant",
+            "country": "france",
             "phone": "2322984953",
             "id": 1
-          },
-          {
-            "name": "Aakash Choudhury",
-            "country": "USA",
-            "phone": "4930384837",
-            "id": 2
-          },
-          {
-            "name": "Arun Dey",
-            "country": "Brazil",
-            "phone": "5748493812",
-            "id": 3
-          },
-          {
-            "name": "Vikash Choudhury",
-            "country": "New Zeland",
-            "phone": "9873625261",
-            "id": 4
-          },
-          {
-            "name": "Gaurav Gupta",
-            "country": "Russia",
-            "phone": "7002873284",
-            "id": 5
           }
         ]
 }
